@@ -1,16 +1,18 @@
-FROM openjdk:17
+# Use Ubuntu as base image
+FROM ubuntu:latest
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+# Install necessary packages
+RUN apt-get update && apt-get install -y openjdk-17-jdk
 
-# Make port 8080 available to the world outside this container
+# Set environment variables
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH=$PATH:$JAVA_HOME/bin
+
+ARG JAR_FILE=target/*.jar
+COPY ../target/crudOperations.jar app.jar
+
+# Expose the port your application runs on
 EXPOSE 9191
 
-# The application's jar file
-ARG JAR_FILE=target/crudOperations.jar
-
-# Add the application's jar to the container
-ADD ${JAR_FILE} app.jar
-
-# Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+# Command to run your application
+ENTRYPOINT ["java","-jar","/app.jar"]
