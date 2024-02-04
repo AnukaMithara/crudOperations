@@ -3,7 +3,6 @@ package com.focalid.crudoperations.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.nio.file.Path;
 
 @Data
 @AllArgsConstructor

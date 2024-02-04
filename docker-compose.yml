@@ -9,8 +9,16 @@ services:
       - "9191:9191"
     depends_on:
       - mysql-db
+    environment:
+      MYSQL_HOST: mysql-db
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: gep2@123
 
   mysql-db:
-    build:
-      context: .
-      dockerfile: Dockerfile-mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: gep2@123
+      MYSQL_DATABASE: person_details
+    ports:
+      - "3306:3306"
